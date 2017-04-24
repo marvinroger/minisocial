@@ -92,7 +92,7 @@ $(function () {
     messageHtml += '<ul data-id="' + entry.id + '" class="message">'
     messageHtml += '  <li class="username">' + entry.username + ' (<span class="date">' + formatDate(new Date(entry.pub_date)) + '</span>)</li>'
     messageHtml += '  <li class="text">' + escapeHtml(entry.message_text) + '</li>'
-    messageHtml += '  <li><button class="delete">Supprimer</button></li>'
+    if (entry.mine) messageHtml += '  <li><button class="delete">Supprimer</button></li>'
     messageHtml += '</ul>'
 
     var messageEl = $(messageHtml)

@@ -46,6 +46,7 @@ def index(request):
                 'username': entry.message.user.username,
                 'message_text': entry.message.message_text,
                 'pub_date': entry.message.pub_date.isoformat(),
+                'mine': entry.message.user == request.user,
             })
     except ObjectDoesNotExist:
         pass
@@ -118,6 +119,7 @@ def get_activity(request):
                 serialized['username'] = entry.message.user.username
                 serialized['message_text'] = entry.message.message_text
                 serialized['pub_date'] = entry.message.pub_date
+                serialized['mine'] = entry.message.user == request.user
             else:
                 serialized['type'] = '-'
 
