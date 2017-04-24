@@ -1,5 +1,7 @@
 # MiniSocial
 
+[![Build Status](https://travis-ci.org/marvinroger/minisocial.svg?branch=master)](https://travis-ci.org/marvinroger/minisocial)
+
 A (very) simple microblogging platform.
 
 ## Configuration

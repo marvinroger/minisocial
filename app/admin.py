@@ -1,9 +1,19 @@
+"""Administration models"""
+
 from django.contrib import admin
 
 from .models import Message, MessageHistory
 
 class MessageAdmin(admin.ModelAdmin):
+    """
+    Message administration model.
+    Here, we intercept the soft deletion of messages to add an entry
+    in the history.
+    """
+
     def save_model(self, request, obj, form, change):
+        """Actual place where we intercept the form"""
+
         super(MessageAdmin, self).save_model(request, obj, form, change)
 
         if not change or 'is_deleted' not in form.changed_data:

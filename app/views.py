@@ -1,3 +1,5 @@
+"""Views"""
+
 import json
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout as auth_logout
@@ -12,16 +14,22 @@ from .models import Message, MessageHistory
 
 @require_GET
 def login(request):
+    """Render the login page."""
+
     return render(request, 'app/login.html')
 
 @require_GET
 def logout(request):
+    """Logout the user and redirect to the homepage."""
+
     auth_logout(request)
     return redirect('/')
 
 @login_required
 @require_GET
 def index(request):
+    """Render the home page with all messages not deleted."""
+
     messages = []
     last_state = 0
     try:
@@ -48,6 +56,8 @@ def index(request):
 @require_POST
 @transaction.atomic
 def post_message(request):
+    """Handle message posting."""
+
     message_arg = request.POST.get('message')
 
     if not message_arg:
@@ -62,8 +72,13 @@ def post_message(request):
 @login_required
 @require_http_methods(['DELETE'])
 @transaction.atomic
-def delete_message(request, id):
-    message_id = int(id)
+def delete_message(request, message_id):
+    """
+    Handle message deleting.
+    This method soft-deletes the corresponding message.
+    """
+
+    message_id = int(message_id)
 
     try:
         message = Message.objects.get(user=request.user, id=message_id)
@@ -78,6 +93,8 @@ def delete_message(request, id):
 @login_required
 @require_GET
 def get_activity(request):
+    """This renders the feed activity as JSON."""
+
     last_state_arg = request.GET.get('last_state')
 
     if not last_state_arg:

@@ -1,3 +1,7 @@
 [MASTER]
 
 load-plugins=pylint_django
+
+[MESSAGES CONTROL]
+
+disable=C0301,E0102
