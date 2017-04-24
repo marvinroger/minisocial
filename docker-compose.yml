@@ -2,5 +2,7 @@
  services:
    web:
      build: .
+     volumes:
+       - minisocial_db:/code/db.sqlite3
      ports:
        - "8000:8000"
