@@ -1,0 +1,32 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Flux{% endblock %}
+
+{% block scripts %}
+<script>
+window.FEED_REFRESH_URL = '{% url "ajax_get_activity" %}'
+window.LAST_STATE = {{ last_state }}
+</script>
+<script src="{% static '3rd/js/jquery.min.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+Bonjour {{ user.get_username }}{% if user.is_staff %} (<a href="{% url "admin:index" %}">admin</a>){% endif %}
+
+<form action="{% url "ajax_post_message" %}" method="post" id="form_post_message">
+  {% csrf_token %}
+  <input type="text" name="message">
+  <input type="submit" value="Envoyer">
+</form>
+
+{% for message in messages %}
+   <ul>
+      <li>{{ message.username }}</li>
+      <li>{{ message.message_text }}</li>
+      <li>{{ message.pub_date }}</li>
+      <li><button class="delete" data-id="{{ message.id }}">Supprimer</button></li>
+   </ul>
+{% endfor %}
+{% endblock %}
