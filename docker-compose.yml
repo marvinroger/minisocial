@@ -1,8 +1,7 @@
- version: '2'
- services:
-   web:
-     build: .
-     volumes:
-       - minisocial_db:/code/db.sqlite3
-     ports:
-       - "8000:8000"
+version: '2'
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"

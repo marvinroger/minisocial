@@ -4,6 +4,10 @@
 
 A (very) simple microblogging platform.
 
+## Get
+
+`git clone https://github.com/marvinroger/minisocial.git`
+
 ## Configuration
 
 * Create Google OAuth 2.0 credentials with the `Google+ API` enabled
@@ -17,4 +21,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '<secret>'
 
 ## Bootstrap
 
-`docker build --name minisocial . && docker run -p 80:80 minisocial`
+`cd minisocial && docker-compose up`
+
+Django will listen on port 8000.

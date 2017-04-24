@@ -7,7 +7,4 @@ RUN pip install -r requirements.txt
 ADD . /code/
 RUN python manage.py migrate
 
-VOLUME ["/code/db.sqlite3"]
 EXPOSE 8000
-
-RUN "python manage.py runserver"
