@@ -18,7 +18,7 @@ window.MINISOCIAL = {
 {% endblock %}
 
 {% block content %}
-{% trans "Bonjour" %} {{ user.get_username }} (<a href="{% url "logout" %}">{% trans "déconnexion" %}</a>{% if user.is_staff %} | (<a href="{% url "admin:index" %}">{% trans "administration" %}</a>{% endif %})
+{% trans "Bonjour" %} {{ user.get_username }} (<a href="{% url "logout" %}">{% trans "déconnexion" %}</a>{% if user.is_staff %} | <a href="{% url "admin:index" %}">{% trans "administration" %}</a>{% endif %})
 
 <form action="{% url "ajax_post_message" %}" method="post" id="form_post_message">
   <input type="text" name="message" maxlength="140">
@@ -26,13 +26,5 @@ window.MINISOCIAL = {
 </form>
 
 <div class="messages">
-{% for message in messages %}
-   <ul data-id="{{ message.id }}" class="message">
-      <li>{{ message.username }}</li>
-      <li>{{ message.message_text }}</li>
-      <li>{{ message.pub_date }}</li>
-      <li><button class="delete">{% trans "Supprimer" %}</button></li>
-   </ul>
-{% endfor %}
 </div>
 {% endblock %}
