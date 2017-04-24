@@ -1,7 +1,8 @@
 {% extends 'app/base.html' %}
+{% load i18n %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}{% trans "Connexion" %}{% endblock %}
 
 {% block content %}
-<a href="{% url "social:begin" "google-oauth2" %}">Se connecter avec Google</a>
+<a href="{% url "social:begin" "google-oauth2" %}">{% trans "Se connecter avec Google" %}</a>
 {% endblock %}

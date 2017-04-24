@@ -1,32 +1,38 @@
 {% extends 'app/base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Flux{% endblock %}
+{% block title %}{% trans "Flux" %}{% endblock %}
 
 {% block scripts %}
 <script>
-window.FEED_REFRESH_URL = '{% url "ajax_get_activity" %}'
-window.LAST_STATE = {{ last_state }}
+window.MINISOCIAL = {
+  MESSAGE_ENDPOINT: '{% url "ajax_post_message" %}',
+  FEED_REFRESH_URL: '{% url "ajax_get_activity" %}',
+  INITIAL_STATE: {{ messages_json|safe }},
+  LAST_STATE: {{ last_state }}
+}
 </script>
 <script src="{% static '3rd/js/jquery.min.js' %}"></script>
 <script src="{% static 'js/app.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-Bonjour {{ user.get_username }}{% if user.is_staff %} (<a href="{% url "admin:index" %}">admin</a>){% endif %}
+{% trans "Bonjour" %} {{ user.get_username }} (<a href="{% url "logout" %}">{% trans "déconnexion" %}</a>{% if user.is_staff %} | (<a href="{% url "admin:index" %}">{% trans "administration" %}</a>{% endif %})
 
 <form action="{% url "ajax_post_message" %}" method="post" id="form_post_message">
-  {% csrf_token %}
-  <input type="text" name="message">
-  <input type="submit" value="Envoyer">
+  <input type="text" name="message" maxlength="140">
+  <input type="submit" value="{% trans "Publier" %}">
 </form>
 
+<div class="messages">
 {% for message in messages %}
-   <ul>
+   <ul data-id="{{ message.id }}" class="message">
       <li>{{ message.username }}</li>
       <li>{{ message.message_text }}</li>
       <li>{{ message.pub_date }}</li>
-      <li><button class="delete" data-id="{{ message.id }}">Supprimer</button></li>
+      <li><button class="delete">{% trans "Supprimer" %}</button></li>
    </ul>
 {% endfor %}
+</div>
 {% endblock %}
