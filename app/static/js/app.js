@@ -90,9 +90,8 @@ $(function () {
   function addMessageToView (entry) {
     var messageHtml = ''
     messageHtml += '<ul data-id="' + entry.id + '" class="message">'
-    messageHtml += '  <li>' + entry.username + '</li>'
-    messageHtml += '  <li>' + escapeHtml(entry.message_text) + '</li>'
-    messageHtml += '  <li>' + formatDate(new Date(entry.pub_date)) + '</li>'
+    messageHtml += '  <li class="username">' + entry.username + ' (<span class="date">' + formatDate(new Date(entry.pub_date)) + '</span>)</li>'
+    messageHtml += '  <li class="text">' + escapeHtml(entry.message_text) + '</li>'
     messageHtml += '  <li><button class="delete">Supprimer</button></li>'
     messageHtml += '</ul>'
 
